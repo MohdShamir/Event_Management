@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
   const seedEvents = require("./seed");
+  const path = require("path");
+
 
 const cors = require("cors");
 require("dotenv").config();
@@ -27,8 +29,12 @@ mongoose.connection.once("open", async () => {
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 
-
 app.use("/api/events", require("./Routes/eventRoutes"));
+
+app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
 
 
 const PORT = process.env.PORT || 5000;
