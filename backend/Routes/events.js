@@ -2,6 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Event = require("../models/Event");
 const authMiddleware = require("../middleware/auth");
+import connectDB from "../../server/db.js";
+
+export default async function handler(req, res) {
+  if (req.method === "GET") {
+    const events = await getEvents(); // fetch from DB
+    res.status(200).json(events);
+  }
+}
 
 // GET all events
 router.get("/", async (req, res) => {

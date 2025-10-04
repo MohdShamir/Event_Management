@@ -7,16 +7,23 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+   const [success, setSuccess] = useState(""); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     setError("");
+    setSuccess("");
     try {
-      await API.post("/auth/register", { name, email, password });
-      navigate("/login");
-    } catch (err) {
-      setError(err.response?.data?.message || "Signup failed");
-    }
+      await API.post("/auth/signup", { name, email, password });
+      setSuccess("Signup successful! Redirecting to login...");
+
+      setTimeout(() => {
+    navigate("/login");
+  }, 2000);
+} catch (err) {
+  setError(err.response?.data?.message || "Signup failed");
+}
   };
 
   return (
@@ -27,6 +34,7 @@ const Signup = () => {
       >
         <h1 className="text-2xl font-bold mb-4">Signup</h1>
         {error && <p className="text-red-500 mb-3">{error}</p>}
+        {success && <p className="text-green-600 mb-3">{success}</p>}
 
         <input
           type="text"
