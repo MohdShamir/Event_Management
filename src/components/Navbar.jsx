@@ -6,43 +6,47 @@ const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
-
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
       <Link to="/" className="text-2xl font-bold">
         EMS
       </Link>
 
-      <div className="flex space-x-6 items-center">
-        <Link to="/events" className="hover:underline">
+      <div className="flex items-center gap-4">
+        <Link to="/events" className="hover:text-gray-300">
           Events
         </Link>
 
-        {user ? (
+        {user && (
           <>
-            <Link to="/dashboard" className="hover:underline">
+            {/* Show Add Event button only for logged-in users */}
+            <button
+              onClick={() => navigate("/add-event")}
+              className="bg-green-500 px-3 py-1 rounded hover:bg-green-600 transition"
+            >
+              Add Event
+            </button>
+
+            {/* Dashboard link */}
+            <Link to="/dashboard" className="hover:text-gray-300">
               Dashboard
             </Link>
+
             <button
-              onClick={handleLogout}
-              className="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
+              onClick={logout}
+              className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition"
             >
               Logout
             </button>
           </>
-        ) : (
+        )}
+
+        {!user && (
           <>
-            <Link to="/login" className="hover:underline">
+            <Link to="/login" className="hover:text-gray-300">
               Login
             </Link>
-            <Link
-              to="/signup"
-              className="bg-green-500 px-4 py-2 rounded hover:bg-green-600 transition"
-            >
+            <Link to="/signup" className="hover:text-gray-300">
               Signup
             </Link>
           </>

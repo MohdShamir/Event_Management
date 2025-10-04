@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-  const seedEvents = require("./seed");
   const path = require("path");
 
 
@@ -20,11 +19,6 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true
 }).then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
-
-mongoose.connection.once("open", async () => {
-  await seedEvents();
-});
-
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
