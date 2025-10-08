@@ -43,7 +43,7 @@ const EventDetails = () => {
       <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl">
         {event.image && (
           <img
-            src={`http://localhost:5000${event.image}`}
+         src={`${process.env.REACT_APP_API_URL}${event.image}`}
             alt={event.title}
             className="w-full h-64 object-cover rounded"
           />
